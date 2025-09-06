@@ -25,8 +25,14 @@ import java.time.LocalDateTime;
 public abstract class BaseTimeEntity extends BaseEntity {
     // TODO: TDD로 구현
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public LocalDateTime getCreatedAt(){
         return createdAt;
     }
+
+    public LocalDateTime getUpdatedAt(){
+        return updatedAt;
+    }
+
 }

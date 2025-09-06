@@ -64,4 +64,17 @@ class BaseTimeEntityTest {
         assertThat(createdAt).isNull(); //초기값은 null
     }
 
+    @Test
+    @DisplayName("updatedAt 필드를 가진다.")
+    void hasUpdateAtField(){
+        //given
+        TestTimeEntity entity = new TestTimeEntity();
+
+        //when
+        LocalDateTime updatedAt = entity.getUpdatedAt();
+
+        //then
+        assertThat(updatedAt).isNull(); //초기값은 null
+    }
+
 }
