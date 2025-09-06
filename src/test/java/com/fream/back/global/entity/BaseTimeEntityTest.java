@@ -1,5 +1,6 @@
 package com.fream.back.global.entity;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 /**
@@ -15,4 +16,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @DataJpaTest
 class BaseTimeEntityTest {
     // TODO: 테스트 구현
+
+
 }

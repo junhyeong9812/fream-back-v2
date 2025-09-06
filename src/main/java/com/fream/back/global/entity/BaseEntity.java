@@ -47,4 +47,8 @@ public abstract class BaseEntity {
     public void delete(){
         this.setIsDeleted(true);
     }
+
+    public void restore(){
+        this.setIsDeleted(false);
+    }
 }

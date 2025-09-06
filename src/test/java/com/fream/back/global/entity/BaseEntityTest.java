@@ -82,4 +82,20 @@ class BaseEntityTest {
         assertThat(entity.getIsDeleted()).isTrue();
     }
 
+    @Test
+    @DisplayName("restore 메서드를 호출하면 isDeleted가 false가 된다.")
+    void restoreMethodSetsIsDeletedToFalse(){
+        //given
+        TestEntity entity = new TestEntity();
+        entity.delete(); //먼저 삭제 상태로
+        assertThat(entity.getIsDeleted()).isTrue(); //사전 확인
+
+        //when
+        entity.restore();
+
+        //then
+        assertThat(entity.getIsDeleted()).isFalse();
+
+    }
+
 }
