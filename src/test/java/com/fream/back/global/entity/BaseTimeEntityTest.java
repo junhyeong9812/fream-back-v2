@@ -1,7 +1,11 @@
 package com.fream.back.global.entity;
 
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * BaseTimeEntity 테스트 명세
@@ -13,9 +17,22 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
  * 4. createdAt은_수정_불가
  * 5. isNew는_id가_null일때_true_반환
  */
-@DataJpaTest
+//@DataJpaTest
 class BaseTimeEntityTest {
     // TODO: 테스트 구현
 
+    //테스트용 구현체 클래스
+    static class TestTimeEntity extends BaseTimeEntity{
+    }
+
+    @Test
+    @DisplayName("BaseTimeEntity를 상속한 클래스를 생성할 수 있다.")
+    void canCreateTimeEntityClass(){
+        //given & when
+        TestTimeEntity entity = new TestTimeEntity();
+
+        //then
+        assertThat(entity).isNotNull();
+    }
 
 }
