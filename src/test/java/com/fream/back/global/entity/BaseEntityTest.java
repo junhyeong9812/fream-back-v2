@@ -55,4 +55,17 @@ class BaseEntityTest {
         assertThat(isDeleted).isNotNull();
     }
 
+    @Test
+    @DisplayName("isDeleted를 true로 변경할 수 있다.")
+    void canChangeIsDeletedToTrue(){
+        //given
+        TestEntity entity = new TestEntity();
+
+        //when
+        entity.setIsDeleted(true);
+
+        //then
+        assertThat(entity.getIsDeleted()).isTrue();
+    }
+
 }

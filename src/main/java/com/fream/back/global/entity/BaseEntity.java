@@ -25,11 +25,22 @@ public abstract class BaseEntity {
     private Long id;
     private Boolean isDeleted = false; //기본값 설정
 
+    /**
+     * 조회 메서드
+     * */
+
     public Long getId(){
         return id;
     }
 
     public Boolean getIsDeleted(){
         return isDeleted;
+    }
+
+    /**
+     * 변경 메서드
+     * */
+    public void setIsDeleted(Boolean isDeleted){
+        this.isDeleted = isDeleted;
     }
 }
