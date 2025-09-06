@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -49,5 +51,17 @@ class BaseTimeEntityTest {
         assertThat(entity.getIsDeleted()).isTrue();
     }
 
+    @Test
+    @DisplayName("createAt 필드를 가진다.")
+    void hasCreatedAtField(){
+        //given
+        TestTimeEntity entity = new TestTimeEntity();
+
+        //when
+        LocalDateTime createdAt = entity.getCreatedAt();
+
+        //then
+        assertThat(createdAt).isNull(); //초기값은 null
+    }
 
 }

@@ -1,5 +1,7 @@
 package com.fream.back.global.entity;
 
+import java.time.LocalDateTime;
+
 /**
  * BaseTimeEntity 명세
  *
@@ -22,4 +24,9 @@ package com.fream.back.global.entity;
  */
 public abstract class BaseTimeEntity extends BaseEntity {
     // TODO: TDD로 구현
+    private LocalDateTime createdAt;
+
+    public LocalDateTime getCreatedAt(){
+        return createdAt;
+    }
 }
