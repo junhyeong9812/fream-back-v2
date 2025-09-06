@@ -22,4 +22,14 @@ package com.fream.back.global.entity;
  */
 public abstract class BaseEntity {
     // TODO: TDD로 구현
+    private Long id;
+    private Boolean isDeleted = false; //기본값 설정
+
+    public Long getId(){
+        return id;
+    }
+
+    public Boolean getIsDeleted(){
+        return isDeleted;
+    }
 }

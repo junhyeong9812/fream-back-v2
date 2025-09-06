@@ -1,7 +1,17 @@
 package com.fream.back.global.response;
 
-import static org.junit.jupiter.api.Assertions.*;
+/**
+ * ApiResponse 테스트 명세
+ *
+ * 테스트 케이스:
+ * 1. success_메서드는_SUCCESS_상태와_데이터_포함
+ * 2. success_메서드_데이터없이_호출시_data는_null
+ * 3. error_메서드는_ERROR_상태와_에러메시지_포함
+ * 4. fail_메서드는_FAIL_상태와_메시지_포함
+ * 5. timestamp는_생성시점_자동_설정
+ * 6. 불변객체_테스트_필드_변경_불가
+ */
 
 class ApiResponseTest {
-
+    // TODO: 테스트 구현
 }
