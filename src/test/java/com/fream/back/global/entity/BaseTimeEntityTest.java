@@ -35,4 +35,19 @@ class BaseTimeEntityTest {
         assertThat(entity).isNotNull();
     }
 
+    @Test
+    @DisplayName("BaseEntity의 기능을 상속받는다.")
+    void inheritsBaseEntityFeatures(){
+        //given
+        TestTimeEntity entity = new TestTimeEntity();
+
+        //when & then
+        assertThat(entity.getId()).isNull();
+        assertThat(entity.getIsDeleted()).isFalse();
+
+        entity.delete();
+        assertThat(entity.getIsDeleted()).isTrue();
+    }
+
+
 }
