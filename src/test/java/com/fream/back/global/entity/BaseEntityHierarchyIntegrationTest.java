@@ -176,4 +176,53 @@ class BaseEntityHierarchyIntegrationTest {
         TimeTrackedEntity timeEntity = new TimeTrackedEntity("time");
 //        timeEntity.getCreatedBy(); //컴파일 에러
     }
+
+    @Test
+    @DisplayName("엔티티 전체 라이프사이클 시나리오")
+    void entityFullLifecycle(){
+        //given - 생성
+        FullAuditEntity entity = new FullAuditEntity("Important Document");
+        LocalDateTime creationTime = LocalDateTime.now();
+        
+        //when - 초기 설정
+        entity.setCreatedAt(creationTime);
+        entity.setUpdatedAt(creationTime);
+        entity.setCreatedBy("system");
+        entity.setUpdatedBy("system");
+        
+        //then - 생성 직후 상태
+        assertThat(entity.getIsDeleted()).isFalse();
+        assertThat(entity.getCreatedAt()).isEqualTo(creationTime);
+        assertThat(entity.getCreatedBy()).isEqualTo("system");
+
+        //when - 수정
+        LocalDateTime updateTime = creationTime.plusDays(1);
+        entity.setUpdatedAt(updateTime);
+        entity.setUpdatedBy("admin");
+
+        //then - 수정 직후 상태
+        assertThat(entity.getCreatedAt()).isEqualTo(creationTime);      //생성시간 불변
+        assertThat(entity.getUpdatedAt()).isEqualTo(updateTime);        //수정시간 변경
+        assertThat(entity.getCreatedBy()).isEqualTo("system");  //생성자 불변
+        assertThat(entity.getUpdatedBy()).isEqualTo("admin");   //수정자 변경
+
+        //when - 삭제
+        entity.delete();
+        entity.setUpdatedAt(updateTime.plusHours(1));
+        entity.setUpdatedBy("admin");
+
+        //when - 삭제 후 상태
+        assertThat(entity.getIsDeleted()).isTrue();
+        assertThat(entity.getUpdatedAt()).isEqualTo(updateTime.plusHours(1));
+
+        //when - 복구
+        entity.restore();
+        entity.setUpdatedAt(updateTime.plusHours(2));
+        entity.setUpdatedBy("system");
+
+        //then - 복구 후 상태
+        assertThat(entity.getIsDeleted()).isFalse();
+        assertThat(entity.getUpdatedAt()).isEqualTo(updateTime.plusHours(2));
+        assertThat(entity.getUpdatedBy()).isEqualTo("system");
+    }
 }
