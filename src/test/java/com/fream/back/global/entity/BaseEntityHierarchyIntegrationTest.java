@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -131,5 +133,47 @@ class BaseEntityHierarchyIntegrationTest {
         assertThat(simple.getIsDeleted()).isTrue();
         assertThat(timeTracked.getIsDeleted()).isTrue();
         assertThat(fullAudit.getIsDeleted()).isTrue();
+    }
+
+    @Test
+    @DisplayName("TimeEntity와 AuditEntity에서 시간 필드를 관리할 수 있다.")
+    void canManageTimeFields(){
+        //given
+        TimeTrackedEntity timeEntity = new TimeTrackedEntity("time");
+        FullAuditEntity auditEntity = new FullAuditEntity("audit");
+        LocalDateTime now = LocalDateTime.now();
+
+        //when
+        timeEntity.setCreatedAt(now);
+        timeEntity.setUpdatedAt(now.plusHours(1));
+
+        auditEntity.setCreatedAt(now);
+        auditEntity.setUpdatedAt(now.plusHours(2));
+
+        //then
+        assertThat(timeEntity.getCreatedAt()).isEqualTo(now);
+        assertThat(timeEntity.getUpdatedAt()).isEqualTo(now.plusHours(1));
+
+        assertThat(auditEntity.getCreatedAt()).isEqualTo(now);
+        assertThat(auditEntity.getUpdatedAt()).isEqualTo(now.plusHours(2));
+    }
+
+    @Test
+    @DisplayName("AuditEntity에서만 생성자/수정자 정보를 관리한다.")
+    void onlyAuditEntityManagesAuditFields(){
+        //given
+        FullAuditEntity entity = new FullAuditEntity("content");
+
+        //when
+        entity.setCreatedBy("admin");
+        entity.setUpdatedBy("user1");
+
+        //then
+        assertThat(entity.getCreatedBy()).isEqualTo("admin");
+        assertThat(entity.getUpdatedBy()).isEqualTo("user1");
+
+        //TimeTrackedEntity는 aduit 필드가 없음을 확인
+        TimeTrackedEntity timeEntity = new TimeTrackedEntity("time");
+//        timeEntity.getCreatedBy(); //컴파일 에러
     }
 }
