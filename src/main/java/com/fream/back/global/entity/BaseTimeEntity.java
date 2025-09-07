@@ -35,4 +35,12 @@ public abstract class BaseTimeEntity extends BaseEntity {
         return updatedAt;
     }
 
+    public void setCreatedAt(LocalDateTime now){
+        this.createdAt = now;
+    }
+
+    public void setUpdatedAt(LocalDateTime now){
+        this.updatedAt = now;
+    }
+
 }

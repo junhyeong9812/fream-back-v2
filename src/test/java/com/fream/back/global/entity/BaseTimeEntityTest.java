@@ -70,11 +70,41 @@ class BaseTimeEntityTest {
         //given
         TestTimeEntity entity = new TestTimeEntity();
 
-        //when
+        //whenit c
         LocalDateTime updatedAt = entity.getUpdatedAt();
 
         //then
         assertThat(updatedAt).isNull(); //초기값은 null
     }
+
+    @Test
+    @DisplayName("생성 시간을 설정할 수 있다.")
+    void canSetCreatedAt(){
+        //given
+        TestTimeEntity entity = new TestTimeEntity();
+        LocalDateTime now = LocalDateTime.now();
+
+        //when
+        entity.setCreatedAt(now);
+
+        //then
+        assertThat(entity.getCreatedAt()).isEqualTo(now);
+    }
+
+    @Test
+    @DisplayName("수정 시간을 설정할 수 있다.")
+    void canSetUpdatedAt(){
+        //given
+        TestTimeEntity entity = new TestTimeEntity();
+        LocalDateTime now = LocalDateTime.now();
+
+        //when
+        entity.setUpdatedAt(now);
+
+        //then
+        assertThat(entity.getUpdatedAt()).isEqualTo(now);
+    }
+
+
 
 }
