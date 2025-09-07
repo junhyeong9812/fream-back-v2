@@ -1,4 +1,4 @@
 package com.fream.back.global.entity;
 
-public class BaseAuditEntity {
+public class BaseAuditEntity extends BaseTimeEntity {
 }

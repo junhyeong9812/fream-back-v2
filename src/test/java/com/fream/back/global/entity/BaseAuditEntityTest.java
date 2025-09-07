@@ -22,4 +22,20 @@ class BaseAuditEntityTest {
         assertThat(entity).isNotNull();
     }
 
+    @Test
+    @DisplayName("BaseTimeEntity의 모든 기능을 상속받는다.")
+    void inheritsBaseTimeEntityFeatures(){
+        //given
+        TestAuditEntity entity = new TestAuditEntity();
+
+        //when & then
+        //BaseEntity 기능
+        assertThat(entity.getId()).isNull();
+        assertThat(entity.getIsDeleted()).isFalse();
+
+        //BaseTimeEntity 기능
+        assertThat(entity.getCreatedAt()).isNull();
+        assertThat(entity.getUpdatedAt()).isNull();
+    }
+
 }
