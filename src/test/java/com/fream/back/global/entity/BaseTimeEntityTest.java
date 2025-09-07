@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 //@DataJpaTest
 class BaseTimeEntityTest {
-    // TODO: 테스트 구현
+
 
     //테스트용 구현체 클래스
     static class TestTimeEntity extends BaseTimeEntity{

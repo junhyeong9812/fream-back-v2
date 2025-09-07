@@ -38,4 +38,58 @@ class BaseAuditEntityTest {
         assertThat(entity.getUpdatedAt()).isNull();
     }
 
+    @Test
+    @DisplayName("createdBy 필드를 가진다.")
+    void hasCreatedByField(){
+        //given
+        TestAuditEntity entity = new TestAuditEntity();
+
+        //when
+        String createdBy = entity.getCreatedBy();
+
+        //then
+        assertThat(createdBy).isNull();
+    }
+
+    @Test
+    @DisplayName("createdBy 필드를 설정할 수 있다.")
+    void canSetCreatedBy(){
+        //given
+        TestAuditEntity entity = new TestAuditEntity();
+        String creator = "admin";
+        //when
+        entity.setCreatedBy(creator);
+
+        //then
+        assertThat(entity.getCreatedBy()).isEqualTo(creator);
+
+    }
+
+    @Test
+    @DisplayName("updatedBy 필드를 가진다.")
+    void hasUpdatedByField(){
+        //given
+        TestAuditEntity entity = new TestAuditEntity();
+
+        //when
+        String updatedBy = entity.getUpdatedBy();
+
+        //then
+        assertThat(updatedBy).isNull();
+    }
+
+    @Test
+    @DisplayName("updatedBy 필드를 설정할 수 있다.")
+    void canSetUpdatedBy(){
+        //given
+        TestAuditEntity entity = new TestAuditEntity();
+        String updater = "user1";
+
+        //when
+        entity.setUpdatedBy(updater);
+
+        //then
+        assertThat(entity.getUpdatedBy()).isEqualTo(updater);
+    }
+
 }

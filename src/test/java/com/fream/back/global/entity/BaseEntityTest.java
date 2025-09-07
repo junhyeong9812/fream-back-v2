@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.*;
  */
 
 class BaseEntityTest {
-    // TODO: 테스트 구현
+
 
     static class TestEntity extends BaseEntity {
 
