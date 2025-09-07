@@ -5,6 +5,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -224,5 +226,32 @@ class BaseEntityHierarchyIntegrationTest {
         assertThat(entity.getIsDeleted()).isFalse();
         assertThat(entity.getUpdatedAt()).isEqualTo(updateTime.plusHours(2));
         assertThat(entity.getUpdatedBy()).isEqualTo("system");
+    }
+
+    @Test
+    @DisplayName("다형성을 통해 상위 타입으로 처리 가능하다.")
+    void polymorphismWorks(){
+        //given
+        List<BaseEntity> entities = Arrays.asList(
+            new SimpleEntity("simple"),
+            new TimeTrackedEntity("time"),
+            new FullAuditEntity("audit")
+        );
+
+        //when - 모든 엔티티를 BaseEntity로 처리
+        entities.forEach(BaseEntity::delete);
+
+        //then
+        entities.forEach(entity ->
+                assertThat(entity.getIsDeleted()).isTrue()
+                );
+
+        //when - 복구
+        entities.forEach(BaseEntity :: restore);
+
+        //then
+        entities.forEach(entity ->
+                assertThat(entity.getIsDeleted()).isFalse()
+                );
     }
 }
