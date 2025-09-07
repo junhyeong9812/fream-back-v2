@@ -1,5 +1,11 @@
 package com.fream.back.global.entity;
 
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
+
 /**
  * BaseEntity 계층 구조 통합 테스트 명세
  *
@@ -34,5 +40,96 @@ package com.fream.back.global.entity;
  */
 class BaseEntityHierarchyIntegrationTest {
 
-    //각
+    //각 레벨별 테스트용 구체 클래스
+    static class SimpleEntity extends BaseEntity {
+        private String name;
+        public SimpleEntity(String name){
+            this.name = name;
+        }
+        public String getName(){
+            return name;
+        }
+    }
+
+    static class TimeTrackedEntity extends BaseTimeEntity{
+        private String description;
+
+        public TimeTrackedEntity(String description){
+            this.description = description;
+        }
+
+        public String getDescription(){
+            return description;
+        }
+    }
+
+    static class FullAuditEntity extends BaseAuditEntity{
+        private String content;
+
+        public FullAuditEntity(String content){
+            this.content = content;
+        }
+
+        public String getContent(){
+            return content;
+        }
+    }
+
+    @Test
+    @DisplayName("BaseTimeEntity는 BaseEntity의 모든 기능을 상속받는다.")
+    void timeEntityInheritsFromBaseEntity(){
+        //given
+        TimeTrackedEntity entity = new TimeTrackedEntity("test description");
+
+        //when & then
+        //baseEntity 기능 확인
+        assertThat(entity.getId()).isNull();
+        assertThat(entity.getIsDeleted()).isFalse();
+
+        entity.delete();
+        assertThat(entity.getIsDeleted()).isTrue();
+
+        entity.restore();
+        assertThat(entity.getIsDeleted()).isFalse();
+    }
+
+    @Test
+    @DisplayName("BaseAuditEntity는 BaseTimeEntity의 모든 기능을 상속받는다.")
+    void auditEntityInheritsFromTimeEntity(){
+        //given
+        FullAuditEntity entity = new FullAuditEntity("test content");
+
+        //when & then
+        //baseEntity 기능
+        assertThat(entity.getId()).isNull();
+        assertThat(entity.getIsDeleted()).isFalse();
+
+        //BaseTimeEntity 기능
+        assertThat(entity.getCreatedAt()).isNull();
+        assertThat(entity.getUpdatedAt()).isNull();
+
+        //BaseAuditEntity 기능
+        assertThat(entity.getCreatedBy()).isNull();
+        assertThat(entity.getUpdatedBy()).isNull();
+    }
+
+    @Test
+    @DisplayName("각 엔티티 레벨에서 독립적으로 기능이 동작한다.")
+    void eachLevelFunctionsIndependently(){
+        //given
+        SimpleEntity simple = new SimpleEntity("simple");
+        TimeTrackedEntity timeTracked = new TimeTrackedEntity("time");
+        FullAuditEntity fullAudit = new FullAuditEntity("audit");
+
+        //when
+        //각 delete 동작
+        simple.delete();
+        timeTracked.delete();
+        fullAudit.delete();
+
+        //then
+        assertThat(simple.getIsDeleted()).isTrue();
+        assertThat(timeTracked.getIsDeleted()).isTrue();
+        assertThat(fullAudit.getIsDeleted()).isTrue();
+    }
 }
