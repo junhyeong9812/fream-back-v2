@@ -85,8 +85,12 @@ cd fream-back-v2
 ./gradlew bootRun
 ```
 
+global entity 설계 완료
+global response 개발준
+
 ## 참고 자료
 
 - [FREAM Backend 원본 프로젝트](https://github.com/junhyeong9812/fream-back)
 - Clean Architecture - Robert C. Martin
 - TDD by Example - Kent Beck
+
