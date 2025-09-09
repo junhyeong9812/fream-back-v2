@@ -25,4 +25,13 @@ class ApiResponseTest {
         //컴파일이 되는지만 확인
         ApiResponse response;
     }
+
+    @Test
+    @DisplayName("ApiResponse는 제너릭 타입을 지원한다.")
+    void supportsGenericType(){
+        // given & when & then
+        ApiResponse<String> stringApiResponse;
+        ApiResponse<Integer> integerApiResponse;
+        ApiResponse<Object> objectApiResponse;
+    }
 }
