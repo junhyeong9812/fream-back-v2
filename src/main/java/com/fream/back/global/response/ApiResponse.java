@@ -25,5 +25,14 @@ package com.fream.back.global.response;
  * - timestamp는 생성 시점 자동 설정
  */
 public final class ApiResponse<T> {
-    // TODO: TDD로 구현
+    // TODO: TDD로
+    private String status;
+
+    public ApiResponse(){
+
+    }
+
+    public String getStatus(){
+        return status;
+    }
 }

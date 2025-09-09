@@ -1,7 +1,10 @@
 package com.fream.back.global.response;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * ApiResponse 테스트 명세
@@ -34,4 +37,18 @@ class ApiResponseTest {
         ApiResponse<Integer> integerApiResponse;
         ApiResponse<Object> objectApiResponse;
     }
+
+    @Test
+    @DisplayName("status 필드를 가진다.")
+    void hasStatusField(){
+        // given
+        ApiResponse<String> response = new ApiResponse<>();
+
+        // when
+        String status = response.getStatus();
+
+        // then
+        assertThat(status).isNull();
+    }
+
 }
