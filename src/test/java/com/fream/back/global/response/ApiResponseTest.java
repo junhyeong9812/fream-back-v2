@@ -1,5 +1,8 @@
 package com.fream.back.global.response;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 /**
  * ApiResponse 테스트 명세
  *
@@ -12,6 +15,14 @@ package com.fream.back.global.response;
  * 6. 불변객체_테스트_필드_변경_불가
  */
 
+
 class ApiResponseTest {
     // TODO: 테스트 구현
+    @Test
+    @DisplayName("ApiResponse 클래스가 존재한다.")
+    void apiResponseClassExists(){
+        //given & when & then
+        //컴파일이 되는지만 확인
+        ApiResponse response;
+    }
 }
