@@ -28,6 +28,7 @@ public final class ApiResponse<T> {
     // TODO: TDD로
     private String status;
     private T data;
+    private String message;
 
     public ApiResponse(){
 
@@ -39,5 +40,9 @@ public final class ApiResponse<T> {
 
     public T getData(){
         return data;
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

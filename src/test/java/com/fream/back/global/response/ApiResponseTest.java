@@ -64,4 +64,17 @@ class ApiResponseTest {
         assertThat(data).isNull();
     }
 
+    @Test
+    @DisplayName("message 필드를 가진다.")
+    void hasMessageField(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+
+        //when
+        String message = response.getMessage();
+
+        //then
+        assertThat(message).isNull();
+    }
+
 }
