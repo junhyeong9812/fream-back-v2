@@ -27,6 +27,7 @@ package com.fream.back.global.response;
 public final class ApiResponse<T> {
     // TODO: TDD로
     private String status;
+    private T data;
 
     public ApiResponse(){
 
@@ -34,5 +35,9 @@ public final class ApiResponse<T> {
 
     public String getStatus(){
         return status;
+    }
+
+    public T getData(){
+        return data;
     }
 }

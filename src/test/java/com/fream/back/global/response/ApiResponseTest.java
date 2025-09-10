@@ -51,4 +51,17 @@ class ApiResponseTest {
         assertThat(status).isNull();
     }
 
+    @Test
+    @DisplayName("data 필드를 가진다.")
+    void hasDataField(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+
+        //when
+        String data = response.getData();
+
+        //then
+        assertThat(data).isNull();
+    }
+
 }
