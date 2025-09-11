@@ -45,4 +45,8 @@ public final class ApiResponse<T> {
     public String getMessage(){
         return message;
     }
+
+    public void setStatus(String status){
+        this.status = status;
+    }
 }

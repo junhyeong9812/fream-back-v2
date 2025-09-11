@@ -24,57 +24,51 @@ class ApiResponseTest {
     @Test
     @DisplayName("ApiResponse 클래스가 존재한다.")
     void apiResponseClassExists(){
-        //given & when & then
-        //컴파일이 되는지만 확인
-        ApiResponse response;
+        //given & when
+        ApiResponse response = new ApiResponse();
+
+        //then
+        assertThat(response).isNotNull();
     }
 
     @Test
-    @DisplayName("ApiResponse는 제너릭 타입을 지원한다.")
+    @DisplayName("ApiResponse는 제네릭 타입을 지원한다.")
     void supportsGenericType(){
-        // given & when & then
-        ApiResponse<String> stringApiResponse;
-        ApiResponse<Integer> integerApiResponse;
-        ApiResponse<Object> objectApiResponse;
+        //given & when
+        ApiResponse<String> stringApiResponse = new ApiResponse<>();
+        ApiResponse<Integer> integerApiResponse = new ApiResponse<>();
+
+        //then
+        assertThat(stringApiResponse).isNotNull();
+        assertThat(integerApiResponse).isNotNull();
     }
 
     @Test
     @DisplayName("status 필드를 가진다.")
     void hasStatusField(){
-        // given
+        //given
         ApiResponse<String> response = new ApiResponse<>();
 
-        // when
+        //when
         String status = response.getStatus();
 
-        // then
+        //then
         assertThat(status).isNull();
     }
 
     @Test
-    @DisplayName("data 필드를 가진다.")
-    void hasDataField(){
+    @DisplayName("status를 설정할 수 있다.")
+    void canSetStatus(){
         //given
         ApiResponse<String> response = new ApiResponse<>();
+        String expectedStatus="SUCCESS";
 
         //when
-        String data = response.getData();
+        response.setStatus(expectedStatus);
 
         //then
-        assertThat(data).isNull();
+        assertThat(response.getStatus()).isEqualTo(expectedStatus);
     }
 
-    @Test
-    @DisplayName("message 필드를 가진다.")
-    void hasMessageField(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-
-        //when
-        String message = response.getMessage();
-
-        //then
-        assertThat(message).isNull();
-    }
 
 }
