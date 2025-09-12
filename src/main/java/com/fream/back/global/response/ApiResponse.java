@@ -49,4 +49,12 @@ public final class ApiResponse<T> {
     public void setStatus(String status){
         this.status = status;
     }
+
+    public void setData(T data){
+        this.data = data;
+    }
+
+    public void setMessage(String Message){
+        this.message = message;
+    }
 }

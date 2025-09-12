@@ -70,5 +70,59 @@ class ApiResponseTest {
         assertThat(response.getStatus()).isEqualTo(expectedStatus);
     }
 
+    @Test
+    @DisplayName("data 필드를 가진다.")
+    void hasDataField(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+
+        //when
+        String data = response.getData();
+
+        //then
+        assertThat(data).isNull();
+    }
+
+    @Test
+    @DisplayName("data를 설정할 수 있다.")
+    void canSetData(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+        String testData = "test data";
+
+        //when
+        response.setData(testData);
+
+        //then
+        assertThat(response.getData()).isEqualTo(testData);
+    }
+
+    @Test
+    @DisplayName("message 필드를 가진다.")
+    void hasMessageField(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+
+        //when
+        String message = response.getMessage();
+
+        //then
+        assertThat(message).isNull();
+    }
+
+    @Test
+    @DisplayName("message를 설정할 수 있다.")
+    void canSetMessage(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+        String testMessage = "Error occurred";
+
+        //when
+        response.setMessage(testMessage);
+
+        //then
+        assertThat(response.getMessage()).isEqualTo(testMessage);
+    }
+
 
 }
