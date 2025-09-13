@@ -139,5 +139,74 @@ class ApiResponseTest {
         assertThat(timestamp).isNull();
     }
 
+    @Test
+    @DisplayName("timestamp를 설정할 수 있다.")
+    void canSetTimestamp(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+        LocalDateTime now = LocalDateTime.now();
+
+        //when
+        response.setTimestamp(now);
+
+        //then
+        assertThat(response.getTimestamp()).isEqualTo(now);
+    }
+
+    @Test
+    @DisplayName("모든 필드를 설정할 수 있다.")
+    void canSetAllFields(){
+        //given
+        ApiResponse<Integer> response = new ApiResponse<>();
+        String status = "SUSSCESS";
+        Integer data = 100;
+        String message = "Operation sucessful";
+        LocalDateTime timestamp = LocalDateTime.now();
+
+        //when
+        response.setStatus(status);
+        response.setData(data);
+        response.setMessage(message);
+        response.setTimestamp(timestamp);
+
+        //then
+        assertThat(response.getStatus()).isEqualTo(status);
+        assertThat(response.getData()).isEqualTo(data);
+        assertThat(response.getMessage()).isEqualTo(message);
+        assertThat(response.getTimestamp()).isEqualTo(timestamp);
+    }
+
+    @Test
+    @DisplayName("success 정적 메서드로 성공 응답을 생성할 수 있다.")
+    void canCreateSuccessResponseWithStaticMethod(){
+        //given
+        String testData = "success data";
+
+        //when
+        ApiResponse<String> response = ApiResponse.success(testData);
+
+        //then
+        assertThat(response.getStatus()).isEqualTo("SUCCESS");
+        assertThat(response.getData()).isEqualTo(testData);
+        assertThat(response.getMessage()).isNull();
+        assertThat(response.getTimestamp()).isNotNull();
+    }
+
+    @Test
+    @DisplayName("생성 후에는 필드를 변경할 수 없다 - 불변 객체")
+    void responseIsImmutable(){
+        //given
+        ApiResponse<String> response = ApiResponse.success("data");
+
+        //when & then
+        //setter기 없으므로 컴파일 에러
+        //response.setStatus("FAIL");
+
+        //모든 필드가 final이고 setter가 없음을 확인
+        assertThat(response.getStatus()).isEqualTo("SUCCESS");
+        assertThat(response.getData()).isEqualTo("data");
+
+    }
+
 
 }

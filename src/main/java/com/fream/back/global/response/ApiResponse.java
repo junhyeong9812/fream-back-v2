@@ -37,6 +37,14 @@ public final class ApiResponse<T> {
 
     }
 
+    public static <T> ApiResponse<T> success(T data){
+        ApiResponse<T> response = new ApiResponse<>();
+        response.setStatus("SUCCESS");
+        response.setData(data);
+        response.setTimestamp(LocalDateTime.now());
+        return response;
+    }
+
     public String getStatus(){
         return status;
     }
@@ -60,7 +68,11 @@ public final class ApiResponse<T> {
         this.data = data;
     }
 
-    public void setMessage(String Message){
+    public void setMessage(String message){
         this.message = message;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp){
+        this.timestamp = timestamp;
     }
 }
