@@ -1,5 +1,7 @@
 package com.fream.back.global.response;
 
+import java.time.LocalDateTime;
+
 /**
  * ApiResponse 명세
  *
@@ -29,6 +31,7 @@ public final class ApiResponse<T> {
     private String status;
     private T data;
     private String message;
+    private LocalDateTime timestamp;
 
     public ApiResponse(){
 
@@ -46,6 +49,9 @@ public final class ApiResponse<T> {
         return message;
     }
 
+    public LocalDateTime getTimestamp(){
+        return timestamp;
+    }
     public void setStatus(String status){
         this.status = status;
     }

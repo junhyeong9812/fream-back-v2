@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.*;
 
 /**
@@ -122,6 +124,19 @@ class ApiResponseTest {
 
         //then
         assertThat(response.getMessage()).isEqualTo(testMessage);
+    }
+
+    @Test
+    @DisplayName("timestamp 필드를 가진다.")
+    void hasTimestampField(){
+        //given
+        ApiResponse<String> response = new ApiResponse<>();
+
+        //when
+        LocalDateTime timestamp = response.getTimestamp();
+
+        //then
+        assertThat(timestamp).isNull();
     }
 
 
