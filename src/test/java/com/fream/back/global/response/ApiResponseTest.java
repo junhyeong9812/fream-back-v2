@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Modifier;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
@@ -24,188 +25,106 @@ import static org.assertj.core.api.Assertions.*;
 class ApiResponseTest {
     // TODO: 테스트 구현
     @Test
-    @DisplayName("ApiResponse 클래스가 존재한다.")
-    void apiResponseClassExists(){
-        //given & when
-        ApiResponse response = new ApiResponse();
-
-        //then
+    @DisplayName("success 정적 메서드가 존재한다")
+    void successMethodExists() {
+        // when & then
+        ApiResponse response = ApiResponse.success("data");
         assertThat(response).isNotNull();
     }
 
     @Test
-    @DisplayName("ApiResponse는 제네릭 타입을 지원한다.")
-    void supportsGenericType(){
-        //given & when
-        ApiResponse<String> stringApiResponse = new ApiResponse<>();
-        ApiResponse<Integer> integerApiResponse = new ApiResponse<>();
-
-        //then
-        assertThat(stringApiResponse).isNotNull();
-        assertThat(integerApiResponse).isNotNull();
-    }
-
-    @Test
-    @DisplayName("status 필드를 가진다.")
-    void hasStatusField(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-
-        //when
-        String status = response.getStatus();
-
-        //then
-        assertThat(status).isNull();
-    }
-
-    @Test
-    @DisplayName("status를 설정할 수 있다.")
-    void canSetStatus(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-        String expectedStatus="SUCCESS";
-
-        //when
-        response.setStatus(expectedStatus);
-
-        //then
-        assertThat(response.getStatus()).isEqualTo(expectedStatus);
-    }
-
-    @Test
-    @DisplayName("data 필드를 가진다.")
-    void hasDataField(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-
-        //when
-        String data = response.getData();
-
-        //then
-        assertThat(data).isNull();
-    }
-
-    @Test
-    @DisplayName("data를 설정할 수 있다.")
-    void canSetData(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-        String testData = "test data";
-
-        //when
-        response.setData(testData);
-
-        //then
-        assertThat(response.getData()).isEqualTo(testData);
-    }
-
-    @Test
-    @DisplayName("message 필드를 가진다.")
-    void hasMessageField(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-
-        //when
-        String message = response.getMessage();
-
-        //then
-        assertThat(message).isNull();
-    }
-
-    @Test
-    @DisplayName("message를 설정할 수 있다.")
-    void canSetMessage(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-        String testMessage = "Error occurred";
-
-        //when
-        response.setMessage(testMessage);
-
-        //then
-        assertThat(response.getMessage()).isEqualTo(testMessage);
-    }
-
-    @Test
-    @DisplayName("timestamp 필드를 가진다.")
-    void hasTimestampField(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-
-        //when
-        LocalDateTime timestamp = response.getTimestamp();
-
-        //then
-        assertThat(timestamp).isNull();
-    }
-
-    @Test
-    @DisplayName("timestamp를 설정할 수 있다.")
-    void canSetTimestamp(){
-        //given
-        ApiResponse<String> response = new ApiResponse<>();
-        LocalDateTime now = LocalDateTime.now();
-
-        //when
-        response.setTimestamp(now);
-
-        //then
-        assertThat(response.getTimestamp()).isEqualTo(now);
-    }
-
-    @Test
-    @DisplayName("모든 필드를 설정할 수 있다.")
-    void canSetAllFields(){
-        //given
-        ApiResponse<Integer> response = new ApiResponse<>();
-        String status = "SUSSCESS";
-        Integer data = 100;
-        String message = "Operation sucessful";
-        LocalDateTime timestamp = LocalDateTime.now();
-
-        //when
-        response.setStatus(status);
-        response.setData(data);
-        response.setMessage(message);
-        response.setTimestamp(timestamp);
-
-        //then
-        assertThat(response.getStatus()).isEqualTo(status);
-        assertThat(response.getData()).isEqualTo(data);
-        assertThat(response.getMessage()).isEqualTo(message);
-        assertThat(response.getTimestamp()).isEqualTo(timestamp);
-    }
-
-    @Test
-    @DisplayName("success 정적 메서드로 성공 응답을 생성할 수 있다.")
-    void canCreateSuccessResponseWithStaticMethod(){
-        //given
-        String testData = "success data";
-
-        //when
-        ApiResponse<String> response = ApiResponse.success(testData);
-
-        //then
-        assertThat(response.getStatus()).isEqualTo("SUCCESS");
-        assertThat(response.getData()).isEqualTo(testData);
-        assertThat(response.getMessage()).isNull();
-        assertThat(response.getTimestamp()).isNotNull();
-    }
-
-    @Test
-    @DisplayName("생성 후에는 필드를 변경할 수 없다 - 불변 객체")
-    void responseIsImmutable(){
-        //given
+    @DisplayName("success 메서드는 제네릭을 지원한다")
+    void successSupportsGeneric() {
+        // when
         ApiResponse<String> response = ApiResponse.success("data");
 
-        //when & then
-        //setter기 없으므로 컴파일 에러
-        //response.setStatus("FAIL");
+        // then
+        assertThat(response).isNotNull();
+    }
 
-        //모든 필드가 final이고 setter가 없음을 확인
+    @Test
+    @DisplayName("success 메서드는 SUCCESS 상태를 설정한다")
+    void successSetsStatusToSuccess() {
+        // when
+        ApiResponse<String> response = ApiResponse.success("data");
+
+        // then
         assertThat(response.getStatus()).isEqualTo("SUCCESS");
-        assertThat(response.getData()).isEqualTo("data");
+    }
 
+    @Test
+    @DisplayName("success 메서드는 데이터를 저장한다")
+    void successStoresData() {
+        // given
+        String testData = "test";
+
+        // when
+        ApiResponse<String> response = ApiResponse.success(testData);
+
+        // then
+        assertThat(response.getData()).isEqualTo(testData);
+    }
+
+    @Test
+    @DisplayName("success 메서드는 message를 null로 설정한다")
+    void successSetsMessageToNull() {
+        // when
+        ApiResponse<String> response = ApiResponse.success("data");
+
+        // then
+        assertThat(response.getMessage()).isNull();
+    }
+
+    @Test
+    @DisplayName("생성시 timestamp가 자동 설정된다")
+    void timestampIsSetAutomatically() {
+        // given
+        LocalDateTime before = LocalDateTime.now();
+
+        // when
+        ApiResponse<String> response = ApiResponse.success("data");
+
+        // then
+        assertThat(response.getTimestamp()).isNotNull();
+        assertThat(response.getTimestamp()).isAfterOrEqualTo(before);
+    }
+
+    @Test
+    @DisplayName("error 정적 메서드로 에러 응답을 생성한다")
+    void errorMethodCreatesErrorResponse() {
+        // given
+        String errorMsg = "Error";
+
+        // when
+        ApiResponse<?> response = ApiResponse.error(errorMsg);
+
+        // then
+        assertThat(response.getStatus()).isEqualTo("ERROR");
+        assertThat(response.getMessage()).isEqualTo(errorMsg);
+        assertThat(response.getData()).isNull();
+    }
+
+    @Test
+    @DisplayName("필드들은 변경 불가능하다")
+    void fieldsAreImmutable() {
+        // given
+        ApiResponse<String> response = ApiResponse.success("data");
+
+        // when & then
+        // setter가 없음을 컴파일 타임에 확인
+        // response.setStatus("FAIL"); // 컴파일 에러
+
+        // 또는 리플렉션으로 확인
+        assertThat(response.getClass().getMethods())
+                .filteredOn(m -> m.getName().startsWith("set"))
+                .isEmpty();
+    }
+
+    @Test
+    @DisplayName("ApiResponse는 final 클래스다")
+    void apiResponseIsFinalClass() {
+        // when & then
+        assertThat(Modifier.isFinal(ApiResponse.class.getModifiers())).isTrue();
     }
 
 

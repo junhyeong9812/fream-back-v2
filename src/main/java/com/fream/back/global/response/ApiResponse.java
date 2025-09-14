@@ -33,16 +33,29 @@ public final class ApiResponse<T> {
     private String message;
     private LocalDateTime timestamp;
 
-    public ApiResponse(){
-
+    //private 생성자
+    private ApiResponse(String status, T data, String message, LocalDateTime timestamp) {
+        this.status = status;
+        this.data = data;
+        this.message = message;
+        this.timestamp = timestamp;
     }
 
-    public static <T> ApiResponse<T> success(T data){
-        ApiResponse<T> response = new ApiResponse<>();
-        response.setStatus("SUCCESS");
-        response.setData(data);
-        response.setTimestamp(LocalDateTime.now());
-        return response;
+    // 정적 팩토리 메서드들
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>("SUCCESS", data, null, LocalDateTime.now());
+    }
+
+    public static ApiResponse<?> success() {
+        return new ApiResponse<>("SUCCESS", null, null, LocalDateTime.now());
+    }
+
+    public static ApiResponse<?> error(String message) {
+        return new ApiResponse<>("ERROR", null, message, LocalDateTime.now());
+    }
+
+    public static ApiResponse<?> fail(String message) {
+        return new ApiResponse<>("FAIL", null, message, LocalDateTime.now());
     }
 
     public String getStatus(){
@@ -60,19 +73,5 @@ public final class ApiResponse<T> {
     public LocalDateTime getTimestamp(){
         return timestamp;
     }
-    public void setStatus(String status){
-        this.status = status;
-    }
 
-    public void setData(T data){
-        this.data = data;
-    }
-
-    public void setMessage(String message){
-        this.message = message;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp){
-        this.timestamp = timestamp;
-    }
 }
