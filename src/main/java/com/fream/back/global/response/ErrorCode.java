@@ -30,4 +30,15 @@ package com.fream.back.global.response;
  */
 public enum ErrorCode {
     // TODO: TDD로 구현
+    INVALID_INPUT("C001");
+
+    private final String code;
+
+    ErrorCode(String code){
+        this.code = code;
+    }
+
+    public String getCode(){
+        return code;
+    }
 }
