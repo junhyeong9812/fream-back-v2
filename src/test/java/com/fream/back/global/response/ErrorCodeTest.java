@@ -40,5 +40,8 @@ class ErrorCodeTest {
 
         assertThat(code).isEqualTo("C001");
     }
+    
+    @Test
+    @DisplayName("INVALID_INPUT은 message를 가진다.")
 
 }

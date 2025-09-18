@@ -33,6 +33,7 @@ public enum ErrorCode {
     INVALID_INPUT("C001");
 
     private final String code;
+    private final String message;
 
     ErrorCode(String code){
         this.code = code;
