@@ -43,5 +43,16 @@ class ErrorCodeTest {
     
     @Test
     @DisplayName("INVALID_INPUT은 message를 가진다.")
+    void invalidInputHasMessage(){
+        //given
+        ErrorCode errorCode = ErrorCode.INVALID_INPUT;
+
+        //when
+        String message = errorCode.getMessage();
+
+        //then
+        assertThat(message).isEqualTo("입력값이 올바르지 않습니다.");
+
+    }
 
 }
